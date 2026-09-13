@@ -2,339 +2,241 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Moonburrow</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Moonburrow 0.2</title>
 
 <style>
-* {
-  box-sizing: border-box;
+*{box-sizing:border-box}
+
+body{
+margin:0;
+background:linear-gradient(#11162b,#080b15);
+color:#f4f1ff;
+font-family:Arial,sans-serif;
 }
 
-body {
-  margin: 0;
-  min-height: 100vh;
-  background:
-    radial-gradient(circle at 50% 10%, #39436d 0%, #171b32 45%, #090b16 100%);
-  color: #f5f1ff;
-  font-family: Arial, sans-serif;
+button{
+background:#cbb8ff;
+border:0;
+border-radius:10px;
+padding:12px 16px;
+font-weight:bold;
+cursor:pointer;
+margin:4px;
 }
 
-button {
-  border: 0;
-  border-radius: 12px;
-  padding: 13px 18px;
-  background: #c9b5ff;
-  color: #171225;
-  font-weight: bold;
-  cursor: pointer;
-  font-size: 15px;
+button:hover{background:#e1d7ff}
+
+button:disabled{
+opacity:.4;
+cursor:not-allowed;
 }
 
-button:hover {
-  transform: translateY(-2px);
-  filter: brightness(1.08);
+.wrap{
+max-width:1100px;
+margin:auto;
+padding:20px;
 }
 
-button:disabled {
-  opacity: .45;
-  cursor: not-allowed;
-  transform: none;
+h1{text-align:center;font-size:44px;margin:5px}
+.subtitle{text-align:center;color:#aaaed0}
+
+.panel{
+background:#1a2039;
+border:1px solid #424b70;
+border-radius:16px;
+padding:18px;
+margin-bottom:16px;
 }
 
-.hidden {
-  display: none !important;
+.stats{
+display:grid;
+grid-template-columns:repeat(5,1fr);
+gap:8px;
 }
 
-.container {
-  width: min(1100px, 94%);
-  margin: auto;
-  padding: 30px 0 50px;
+.stat{
+background:#252b49;
+padding:10px;
+border-radius:10px;
+text-align:center;
 }
 
-header {
-  text-align: center;
-  margin-bottom: 25px;
+.stat small{
+display:block;
+color:#aeb4ce;
 }
 
-h1 {
-  font-size: 48px;
-  margin: 5px;
+.stat strong{font-size:21px}
+
+.game{
+display:grid;
+grid-template-columns:1fr 300px;
+gap:16px;
 }
 
-.subtitle {
-  color: #aaaed0;
+.map{
+display:grid;
+grid-template-columns:repeat(5,1fr);
+gap:7px;
 }
 
-.panel {
-  background: rgba(25, 29, 53, .92);
-  border: 1px solid #444b70;
-  border-radius: 20px;
-  padding: 22px;
-  box-shadow: 0 15px 40px rgba(0,0,0,.3);
+.location{
+min-height:85px;
+background:#252b49;
+border:1px solid #444e75;
+border-radius:10px;
+padding:8px;
+cursor:pointer;
 }
 
-.rabbit-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 15px;
+.location:hover{
+background:#323a60;
 }
 
-.rabbit {
-  background: #252b4b;
-  color: white;
-  border: 1px solid #485074;
-  text-align: left;
-  min-height: 220px;
+.location.current{
+border:3px solid #d9caff;
+background:#403c62;
 }
 
-.rabbit .emoji {
-  font-size: 50px;
+.location.player{
+box-shadow:0 0 12px #c7aaff;
 }
 
-.rabbit h3 {
-  margin-bottom: 5px;
+.location small{
+color:#aeb4ce;
 }
 
-.rabbit p {
-  color: #b9bed8;
-  line-height: 1.4;
-  font-weight: normal;
+.rabbits{
+display:flex;
+gap:8px;
+flex-wrap:wrap;
 }
 
-.game {
-  display: grid;
-  grid-template-columns: 1fr 310px;
-  gap: 18px;
+.rabbitCard{
+background:#252b49;
+padding:10px;
+border-radius:10px;
+flex:1;
+min-width:120px;
 }
 
-.stats {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 8px;
-  margin-bottom: 18px;
+.log{
+height:280px;
+overflow:auto;
+background:#0e1220;
+padding:10px;
+border-radius:10px;
 }
 
-.stat {
-  background: #222743;
-  border-radius: 12px;
-  padding: 12px;
-  text-align: center;
+.log p{
+border-bottom:1px solid #292f48;
+padding-bottom:7px;
+font-size:14px;
 }
 
-.stat small {
-  display: block;
-  color: #a9afca;
+.choice{
+background:#30294a;
+border:1px solid #65558a;
+border-radius:12px;
+padding:15px;
+margin-bottom:12px;
 }
 
-.stat strong {
-  font-size: 22px;
+.start{
+text-align:center;
+max-width:700px;
+margin:50px auto;
 }
 
-.map {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 8px;
-  margin: 18px 0;
+.rabbitChoice{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:10px;
 }
 
-.room {
-  min-height: 85px;
-  border-radius: 12px;
-  border: 1px solid #414a70;
-  background: #272d4c;
-  padding: 8px;
-  cursor: pointer;
+.rabbitChoice button{
+min-height:150px;
+background:#252b49;
+color:white;
 }
 
-.room:hover {
-  background: #333b62;
+.end{
+text-align:center;
+font-size:18px;
 }
 
-.room.current {
-  border: 3px solid #d8c6ff;
-  background: #403a62;
-}
-
-.room.hidden-room {
-  background: #111525;
-  color: #555d7e;
-}
-
-.room-icon {
-  font-size: 25px;
-}
-
-.room-name {
-  font-size: 12px;
-  font-weight: bold;
-}
-
-.controls {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.log {
-  height: 280px;
-  overflow-y: auto;
-  background: #101322;
-  border-radius: 12px;
-  padding: 10px;
-}
-
-.log-entry {
-  padding: 8px 4px;
-  border-bottom: 1px solid #282d47;
-  color: #c6c9dc;
-  font-size: 14px;
-}
-
-.bag {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin-top: 12px;
-}
-
-.token {
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  background: #343b5d;
-}
-
-.progress {
-  height: 12px;
-  background: #0c0e18;
-  border-radius: 20px;
-  overflow: hidden;
-}
-
-.progress-bar {
-  height: 100%;
-  background: linear-gradient(90deg, #9d7cff, #eadfff);
-  width: 0%;
-}
-
-.event {
-  background: #302849;
-  border: 1px solid #66568b;
-  border-radius: 14px;
-  padding: 15px;
-  margin-bottom: 15px;
-}
-
-.event h3 {
-  margin-top: 0;
-}
-
-.end {
-  text-align: center;
-  max-width: 650px;
-  margin: 60px auto;
-}
-
-.big {
-  font-size: 70px;
-}
-
-@media(max-width: 800px) {
-  .rabbit-grid {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .game {
-    grid-template-columns: 1fr;
-  }
-
-  .stats {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-@media(max-width: 500px) {
-  .rabbit-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .map {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  h1 {
-    font-size: 36px;
-  }
+@media(max-width:800px){
+.game{grid-template-columns:1fr}
+.stats{grid-template-columns:repeat(3,1fr)}
+.rabbitChoice{grid-template-columns:1fr 1fr}
+.map{grid-template-columns:repeat(3,1fr)}
 }
 </style>
 </head>
 
 <body>
 
-<div class="container">
+<div class="wrap">
 
-<header>
-  <div>🌙</div>
-  <h1>Moonburrow</h1>
-  <div class="subtitle">The rabbits beneath the moon</div>
-</header>
+<h1>🌙 Moonburrow</h1>
+<div class="subtitle">The race for the Moon Hare</div>
 
-<!-- START SCREEN -->
+<!-- START -->
 
-<section id="startScreen" class="panel">
+<div id="start" class="panel start">
 
 <h2>Choose your rabbit</h2>
 
 <p>
-The Moon Hare has disappeared. Somewhere beneath the ancient meadow,
-eight pieces of Moonlight are waiting.
+Three rabbits have entered the ancient burrow.
+Only one will earn the Moon Hare's blessing.
 </p>
 
-<p>
-Choose your rabbit. Each one plays differently.
-</p>
+<div class="rabbitChoice">
 
-<div class="rabbit-grid">
-
-<button class="rabbit" onclick="startGame('moon')">
-  <div class="emoji">🌙🐇</div>
-  <h3>Luna</h3>
-  <p>Sees things other rabbits cannot.</p>
-  <b>Ability: Moon Sight</b>
+<button onclick="begin('you')">
+🌙<br>
+<b>Luna</b>
+<br><br>
+Moon Sight
 </button>
 
-<button class="rabbit" onclick="startGame('dream')">
-  <div class="emoji">🔮🐇</div>
-  <h3>Dreamer</h3>
-  <p>Can calm fear and sense danger.</p>
-  <b>Ability: Dream Sense</b>
+<button onclick="begin('you')">
+🌿<br>
+<b>Thistle</b>
+<br><br>
+Forage Rush
 </button>
 
-<button class="rabbit" onclick="startGame('wild')">
-  <div class="emoji">🌿🐇</div>
-  <h3>Thistle</h3>
-  <p>A curious rabbit who always finds something useful.</p>
-  <b>Ability: Forage Rush</b>
+<button onclick="begin('you')">
+🔮<br>
+<b>Dreamer</b>
+<br><br>
+Dream Sense
 </button>
 
-<button class="rabbit" onclick="startGame('storm')">
-  <div class="emoji">⚡🐇</div>
-  <h3>Storm</h3>
-  <p>Unpredictable, brave and slightly reckless.</p>
-  <b>Ability: Storm Luck</b>
+<button onclick="begin('you')">
+⚡<br>
+<b>Storm</b>
+<br><br>
+Storm Luck
 </button>
 
 </div>
-</section>
+
+<p>
+<b>Goal:</b> Be the first rabbit to collect 6 Moonlight.
+</p>
+
+</div>
 
 
 <!-- GAME -->
 
-<section id="gameScreen" class="hidden">
+<div id="game" class="hidden">
 
-<div class="stats panel">
+<div class="panel stats">
 
 <div class="stat">
 <small>❤️ Health</small>
@@ -343,7 +245,7 @@ Choose your rabbit. Each one plays differently.
 
 <div class="stat">
 <small>😊 Happiness</small>
-<strong id="happiness">3</strong>
+<strong id="happy">4</strong>
 </div>
 
 <div class="stat">
@@ -353,12 +255,12 @@ Choose your rabbit. Each one plays differently.
 
 <div class="stat">
 <small>🌙 Moonlight</small>
-<strong id="moonlight">0</strong>
+<strong id="moon">0</strong>
 </div>
 
 <div class="stat">
 <small>🥕 Food</small>
-<strong id="food">2</strong>
+<strong id="food">3</strong>
 </div>
 
 </div>
@@ -368,641 +270,785 @@ Choose your rabbit. Each one plays differently.
 
 <main>
 
-<section class="panel">
+<div class="panel">
 
-<h2 id="rabbitTitle">Moonburrow</h2>
+<h2>🗺️ The Burrow</h2>
 
 <p>
-Turn <b id="turn">1</b>
+Click an adjacent location to move there.
 </p>
-
-<div id="eventBox"></div>
 
 <div id="map" class="map"></div>
 
-<div class="controls">
+</div>
 
-<button onclick="explore()">🔦 Explore</button>
 
-<button onclick="rest()">🥕 Rest & Forage</button>
+<div class="panel">
 
-<button onclick="ability()">✨ Rabbit Ability</button>
+<h2>🐇 The Rabbits</h2>
+
+<div id="rabbits" class="rabbits"></div>
 
 </div>
 
-</section>
+
+<div class="panel">
+
+<h2>What will you do?</h2>
+
+<div id="actions"></div>
+
+</div>
+
+
+<div class="panel">
+
+<h2>📜 Adventure</h2>
+
+<div id="event"></div>
+
+</div>
 
 </main>
 
 
 <aside>
 
-<section class="panel">
+<div class="panel">
 
-<h3>🎒 Moonlight Bag</h3>
-
-<div id="bag" class="bag"></div>
-
-</section>
-
-<br>
-
-<section class="panel">
-
-<h3>🌙 Awaken the Moon Hare</h3>
+<h3>🌙 Moon Hare</h3>
 
 <p>
-Collect 8 Moonlight.
+First rabbit to reach <b>6 Moonlight</b> wins.
 </p>
 
-<div class="progress">
-<div id="progress" class="progress-bar"></div>
+<div id="goal"></div>
+
 </div>
 
-<p id="goalText">0 / 8</p>
 
-</section>
+<div class="panel">
 
-<br>
-
-<section class="panel">
-
-<h3>📜 Adventure Log</h3>
+<h3>📜 Log</h3>
 
 <div id="log" class="log"></div>
 
-</section>
+</div>
 
 </aside>
 
 </div>
 
-</section>
+</div>
 
 
 <!-- END -->
 
-<section id="endScreen" class="panel end hidden">
+<div id="end" class="panel end hidden">
 
-<div class="big">🌕🐇</div>
-
-<h2 id="endTitle">The Moon Hare Awakens</h2>
+<h2 id="endTitle"></h2>
 
 <p id="endText"></p>
 
 <button onclick="location.reload()">Play Again</button>
 
-</section>
+</div>
 
 </div>
 
 
 <script>
 
-const rabbits = {
+const places=[
 
-moon: {
-name: "Luna",
-ability: "Moon Sight"
-},
+{name:"Clover Meadow",icon:"🌿"},
+{name:"Crystal Spring",icon:"💧"},
+{name:"Whispering Grove",icon:"🍄"},
+{name:"Ancient Root",icon:"🌳"},
+{name:"Moon Garden",icon:"🌙"},
 
-dream: {
-name: "Dreamer",
-ability: "Dream Sense"
-},
+{name:"Old Hayfield",icon:"🌾"},
+{name:"Fairy Hollow",icon:"✨"},
+{name:"Deep Burrow",icon:"🕳️"},
+{name:"Fox Tunnel",icon:"🦊"},
+{name:"Star Cave",icon:"⭐"},
 
-wild: {
-name: "Thistle",
-ability: "Forage Rush"
-},
+{name:"Hidden Meadow",icon:"🌿"},
+{name:"Forgotten Shrine",icon:"🪨"},
+{name:"Abandoned Warren",icon:"🏚️"},
+{name:"Crystal Cave",icon:"💎"},
+{name:"Elder Tree",icon:"🌳"},
 
-storm: {
-name: "Storm",
-ability: "Storm Luck"
-}
+{name:"Underground Spring",icon:"💧"},
+{name:"Dreaming Grove",icon:"🔮"},
+{name:"Owl Chamber",icon:"🦉"},
+{name:"Moon Chamber",icon:"🌙"},
+{name:"Starlight Hollow",icon:"✨"},
 
-};
-
-
-const rooms = [
-
-["🌿","Clover Meadow"],
-["💧","Crystal Spring"],
-["🍄","Whispering Mushrooms"],
-["🌳","Giant Root"],
-["🪨","Ancient Ruins"],
-
-["🌾","Old Hayfield"],
-["✨","Fairy Hollow"],
-["🕳️","Deep Burrow"],
-["🦊","Fox Tunnel"],
-["🌙","Moon Garden"],
-
-["🌿","Clover Meadow"],
-["🪨","Forgotten Shrine"],
-["🏚️","Abandoned Warren"],
-["💎","Crystal Cave"],
-["🌳","Elder Tree"],
-
-["💧","Underground Spring"],
-["🍄","Dreaming Grove"],
-["🦉","Owl Chamber"],
-["🌙","Moon Chamber"],
-["✨","Starlight Hollow"],
-
-["🌿","Hidden Meadow"],
-["🪨","Stone Circle"],
-["🕳️","Rabbit King's Hall"],
-["🌾","Golden Field"],
-["🌙","Heart of the Burrow"]
+{name:"Golden Field",icon:"🌾"},
+{name:"Stone Circle",icon:"🪨"},
+{name:"Rabbit King's Hall",icon:"👑"},
+{name:"Secret Meadow",icon:"🌿"},
+{name:"Heart of Burrow",icon:"🌕"}
 
 ];
+
+
+/*
+5 x 5 map.
+
+Each location connects to locations
+above, below, left and right.
+*/
+
+function neighbours(pos){
+
+let result=[];
+
+let row=Math.floor(pos/5);
+let col=pos%5;
+
+if(row>0)result.push(pos-5);
+if(row<4)result.push(pos+5);
+if(col>0)result.push(pos-1);
+if(col<4)result.push(pos+1);
+
+return result;
+
+}
 
 
 let state;
 
 
-function shuffle(array) {
+function begin(){
 
-return [...array].sort(() => Math.random() - 0.5);
+state={
 
-}
+turn:1,
 
+you:{
+name:"Luna",
+icon:"🌙🐇",
+pos:12,
+moon:0,
+food:3,
+health:3,
+happy:4,
+fear:0
+},
 
-function startGame(type) {
+bramble:{
+name:"Bramble",
+icon:"🌿🐇",
+pos:2,
+moon:1,
+food:3,
+health:3,
+happy:4,
+fear:0
+},
 
-state = {
+nyx:{
+name:"Nyx",
+icon:"🔮🐇",
+pos:22,
+moon:1,
+food:3,
+health:3,
+happy:4,
+fear:0
+},
 
-rabbit: type,
+event:"",
 
-health: 3,
-
-happiness: 3,
-
-fear: 0,
-
-moonlight: 0,
-
-food: 2,
-
-turn: 1,
-
-current: 12,
-
-revealed: new Set([12]),
-
-abilityUsed: false,
-
-ended: false,
-
-bag: shuffle([
-
-"moon","moon","moon","moon","moon",
-
-"food","food","food","food",
-
-"safe","safe","safe",
-
-"danger","danger","danger",
-
-"fear","fear"
-
-])
+gameOver:false
 
 };
 
-document.getElementById("startScreen").classList.add("hidden");
-document.getElementById("gameScreen").classList.remove("hidden");
+document.getElementById("start").classList.add("hidden");
+document.getElementById("game").classList.remove("hidden");
 
-document.getElementById("rabbitTitle").textContent =
-rabbits[type].name + " enters the Moonburrow";
-
-log("🌙 The adventure begins.");
-
-log("Your goal is to gather 8 Moonlight and awaken the Moon Hare.");
+log("🌙 The Moonburrow opens.");
+log("Three rabbits enter. Only one can claim the Moon Hare.");
 
 render();
 
 }
 
 
-function drawToken() {
+function log(text){
 
-if(state.bag.length === 0) {
+let box=document.getElementById("log");
 
-state.bag = shuffle([
-
-"moon","moon","moon","moon",
-
-"food","food","food",
-
-"safe","safe",
-
-"danger","danger",
-
-"fear"
-
-]);
-
-log("🎒 The Moonlight Bag has been replenished.");
-
-}
-
-return state.bag.pop();
+box.innerHTML="<p>"+text+"</p>"+box.innerHTML;
 
 }
 
 
-function explore() {
+function movePlayer(destination){
 
-if(state.ended) return;
+if(state.gameOver)return;
 
-let token = drawToken();
+if(!neighbours(state.you.pos).includes(destination)){
 
-let next;
-
-do {
-
-next = Math.floor(Math.random() * rooms.length);
-
-} while(next === state.current);
-
-state.current = next;
-
-state.revealed.add(next);
-
-let room = rooms[next];
-
-log("You enter " + room[0] + " " + room[1] + ".");
-
-
-if(token === "moon") {
-
-state.moonlight++;
-
-state.happiness = Math.min(5,state.happiness + 1);
-
-log("🌙 You discovered Moonlight! Happiness +1.");
-
-}
-
-if(token === "food") {
-
-state.food += 2;
-
-log("🥕 You found food.");
-
-}
-
-if(token === "safe") {
-
-state.fear = Math.max(0,state.fear - 1);
-
-state.happiness = Math.min(5,state.happiness + 1);
-
-log("🌿 A peaceful chamber. Fear -1, Happiness +1.");
-
-}
-
-if(token === "danger") {
-
-if(room[1].includes("Fox") || room[1].includes("Owl")) {
-
-state.fear += 2;
-
-state.health--;
-
-log("🦊 Something dangerous finds you! Health -1, Fear +2.");
-
-} else {
-
-state.fear++;
-
-log("⚠️ You hear something following you. Fear +1.");
-
-}
-
-}
-
-if(token === "fear") {
-
-state.fear++;
-
-log("😨 A strange whisper fills the tunnel. Fear +1.");
-
-}
-
-
-if(room[1].includes("Moon")) {
-
-state.moonlight++;
-
-log("🌙 The chamber itself contains Moonlight! +1.");
-
-}
-
-
-if(state.rabbit === "dream" && token === "danger") {
-
-state.fear = Math.max(0,state.fear - 1);
-
-log("🔮 Dream Sense protects you. Fear -1.");
-
-}
-
-
-if(state.fear >= 6) {
-
-state.happiness--;
-
-log("😰 Fear is becoming overwhelming.");
-
-state.fear = 3;
-
-}
-
-
-if(state.health <= 0) {
-
-lose();
+log("You cannot reach that location from here.");
 
 return;
 
 }
 
+state.you.pos=destination;
 
-if(state.moonlight >= 8) {
+log("🐇 You move to "+places[destination].name+".");
 
-win();
+encounter();
+
+}
+
+
+function encounter(){
+
+let roll=Math.random();
+
+let location=places[state.you.pos].name;
+
+if(location==="Moon Garden"){
+
+state.you.moon++;
+
+log("🌙 The Moon Garden grants you Moonlight!");
+
+}
+
+else if(location==="Crystal Cave"){
+
+if(roll<.6){
+
+state.you.moon++;
+
+log("💎 You discover Moonlight hidden inside a crystal.");
+
+}else{
+
+state.you.fear++;
+
+log("💎 The crystals whisper your name. Fear +1.");
+
+}
+
+}
+
+else if(location==="Fox Tunnel"){
+
+state.you.fear+=2;
+state.you.health--;
+
+log("🦊 A fox scent fills the tunnel. Health -1, Fear +2.");
+
+}
+
+else if(location==="Crystal Spring"){
+
+state.you.health=Math.min(3,state.you.health+1);
+
+state.you.fear=Math.max(0,state.you.fear-1);
+
+log("💧 You drink from the spring. Health restored, Fear reduced.");
+
+}
+
+else if(roll<.25){
+
+state.you.moon++;
+
+log("✨ You discover a hidden piece of Moonlight.");
+
+}
+
+else if(roll<.45){
+
+state.you.food+=1;
+
+log("🥕 You find wild herbs and edible plants.");
+
+}
+
+else if(roll<.6){
+
+state.you.fear++;
+
+log("😨 Something moves in the darkness. Fear +1.");
+
+}
+
+}
+
+
+function prepare(){
+
+if(state.you.food<=0){
+
+log("🥕 You have no food to eat.");
 
 return;
 
 }
 
+state.you.food--;
 
-nextTurn();
+state.you.health=Math.min(3,state.you.health+1);
 
-}
+state.you.happy=Math.min(5,state.you.happy+1);
 
+state.you.fear=Math.max(0,state.you.fear-1);
 
-function rest() {
+log("🌿 You stop, eat and settle your nerves.");
 
-if(state.ended) return;
-
-
-if(state.food > 0) {
-
-state.food--;
-
-state.health = Math.min(3,state.health + 1);
-
-state.happiness = Math.min(5,state.happiness + 1);
-
-state.fear = Math.max(0,state.fear - 1);
-
-log("🥕 You rest, eat and recover.");
-
-} else {
-
-state.happiness = Math.max(0,state.happiness - 1);
-
-log("You have no food. Happiness -1.");
+endTurn();
 
 }
 
 
-nextTurn();
+function explore(){
+
+let roll=Math.random();
+
+if(roll<.45){
+
+state.you.moon++;
+
+log("🔎 Exploration succeeds! You find Moonlight.");
+
+}
+
+else if(roll<.7){
+
+state.you.food+=2;
+
+log("🔎 You discover a hidden food cache.");
+
+}
+
+else if(roll<.85){
+
+state.you.fear++;
+
+log("🔎 The tunnel is unsettling. Fear +1.");
+
+}
+
+else{
+
+state.you.health--;
+
+state.you.fear+=2;
+
+log("🔎 You disturb something ancient. Health -1, Fear +2.");
+
+}
+
+endTurn();
 
 }
 
 
-function ability() {
+function scheme(){
 
-if(state.ended || state.abilityUsed) return;
+let target;
 
+if(Math.random()<.5){
 
-state.abilityUsed = true;
+target=state.bramble;
 
+}else{
 
-if(state.rabbit === "moon") {
+target=state.nyx;
 
-let hidden = [...Array(25).keys()]
+}
 
-.filter(x => !state.revealed.has(x))
+let roll=Math.random();
 
-.slice(0,3);
+if(roll<.5){
 
-hidden.forEach(x => state.revealed.add(x));
+target.fear++;
 
-log("🌙 Moon Sight reveals three hidden chambers.");
+target.happy=Math.max(0,target.happy-1);
+
+log("✨ Your trick works. "+target.name+
+" becomes frightened.");
+
+}else{
+
+state.you.fear++;
+
+log("✨ Your scheme backfires. Fear +1.");
+
+}
+
+endTurn();
 
 }
 
 
-if(state.rabbit === "dream") {
+function trade(){
 
-state.fear = Math.max(0,state.fear - 3);
+let target;
 
-state.happiness = Math.min(5,state.happiness + 1);
+if(distance(state.you.pos,state.bramble.pos) <= 1){
 
-log("🔮 Dream Sense calms the darkness. Fear -3.");
+target=state.bramble;
+
+}else if(distance(state.you.pos,state.nyx.pos)<=1){
+
+target=state.nyx;
+
+}
+
+if(!target){
+
+log("🤝 No other rabbit is close enough to trade.");
+
+return;
+
+}
+
+if(state.you.food<=0){
+
+log("You have nothing to offer.");
+
+return;
+
+}
+
+state.you.food--;
+
+target.food++;
+
+state.you.happy++;
+
+log("🤝 You trade food with "+target.name+".");
+
+endTurn();
 
 }
 
 
-if(state.rabbit === "wild") {
+function distance(a,b){
 
-state.food += 3;
+let ar=Math.floor(a/5);
+let ac=a%5;
 
-log("🌿 Forage Rush! You found three food.");
+let br=Math.floor(b/5);
+let bc=b%5;
 
-}
-
-
-if(state.rabbit === "storm") {
-
-let token = drawToken();
-
-log("⚡ Storm Luck draws: " + token.toUpperCase());
-
-if(token === "moon") state.moonlight++;
-
-if(token === "food") state.food += 2;
-
-if(token === "safe") state.happiness++;
-
-if(token === "danger") state.fear++;
-
-if(token === "fear") state.fear++;
+return Math.abs(ar-br)+Math.abs(ac-bc);
 
 }
 
 
-render();
+function aiTurn(rabbit){
+
+let choices=[];
+
+let nearby=neighbours(rabbit.pos);
+
+let target=state.you.moon>rabbit.moon;
+
+if(target){
+
+choices.push("move");
+
+choices.push("explore");
+
+}else{
+
+choices.push("explore");
+
+choices.push("prepare");
+
+}
+
+let choice=choices[Math.floor(Math.random()*choices.length)];
+
+
+if(choice==="move"){
+
+let options=nearby;
+
+rabbit.pos=options[Math.floor(Math.random()*options.length)];
+
+log(rabbit.icon+" "+rabbit.name+
+" moves to "+places[rabbit.pos].name+".");
+
+}
+
+else if(choice==="prepare"){
+
+if(rabbit.food>0){
+
+rabbit.food--;
+
+rabbit.health=Math.min(3,rabbit.health+1);
+
+rabbit.fear=Math.max(0,rabbit.fear-1);
+
+log(rabbit.icon+" "+rabbit.name+" stops to recover.");
+
+}
+
+}
+
+else{
+
+let roll=Math.random();
+
+if(roll<.5){
+
+rabbit.moon++;
+
+log(rabbit.icon+" "+rabbit.name+
+" discovers Moonlight.");
+
+}
+
+else if(roll<.8){
+
+rabbit.food++;
+
+log(rabbit.icon+" "+rabbit.name+" finds food.");
+
+}
+
+else{
+
+rabbit.fear++;
+
+log(rabbit.icon+" "+rabbit.name+
+" encounters something frightening.");
+
+}
+
+}
 
 }
 
 
-function nextTurn() {
+function endTurn(){
+
+if(state.gameOver)return;
 
 state.turn++;
 
-state.abilityUsed = false;
+aiTurn(state.bramble);
+
+aiTurn(state.nyx);
+
+checkWin();
+
+if(!state.gameOver){
+
+if(state.you.fear>=5){
+
+state.you.happy=Math.max(0,state.you.happy-1);
+
+log("😰 Your rabbit is becoming overwhelmed.");
+
+}
+
+if(state.you.health<=0){
+
+finish(false,"Your rabbit is exhausted.",
+"The burrow was too dangerous this time.");
+
+return;
+
+}
 
 render();
 
 }
 
+}
 
-function log(text) {
 
-let box = document.getElementById("log");
+function checkWin(){
 
-box.innerHTML =
-'<div class="log-entry">' + text + '</div>' + box.innerHTML;
+let rabbits=[state.you,state.bramble,state.nyx];
+
+let winner=rabbits.find(r=>r.moon>=6);
+
+if(!winner)return;
+
+state.gameOver=true;
+
+if(winner===state.you){
+
+finish(true,
+"🌕 The Moon Hare chooses you!",
+"You collected 6 Moonlight and became guardian of the Moonburrow.");
+
+}else{
+
+finish(false,
+winner.icon+" "+winner.name+" wins!",
+winner.name+" reached the Moon Hare before you.");
+
+}
 
 }
 
 
-function render() {
+function finish(win,title,text){
 
-document.getElementById("health").textContent = state.health;
+state.gameOver=true;
 
-document.getElementById("happiness").textContent = state.happiness;
+document.getElementById("game").classList.add("hidden");
 
-document.getElementById("fear").textContent = state.fear;
+document.getElementById("end").classList.remove("hidden");
 
-document.getElementById("moonlight").textContent = state.moonlight;
+document.getElementById("endTitle").textContent=title;
 
-document.getElementById("food").textContent = state.food;
+document.getElementById("endText").textContent=text;
 
-document.getElementById("turn").textContent = state.turn;
-
-document.getElementById("goalText").textContent =
-state.moonlight + " / 8";
-
-document.getElementById("progress").style.width =
-Math.min(100,state.moonlight / 8 * 100) + "%";
+}
 
 
-let map = document.getElementById("map");
+function render(){
 
-map.innerHTML = "";
+document.getElementById("health").textContent=state.you.health;
+
+document.getElementById("happy").textContent=state.you.happy;
+
+document.getElementById("fear").textContent=state.you.fear;
+
+document.getElementById("moon").textContent=state.you.moon;
+
+document.getElementById("food").textContent=state.you.food;
+
+document.getElementById("goal").innerHTML=
+"You: "+state.you.moon+
+" 🌙<br>"+
+"Bramble: "+state.bramble.moon+
+" 🌙<br>"+
+"Nyx: "+state.nyx.moon+
+" 🌙<br><br>"+
+"Turn "+state.turn;
 
 
-rooms.forEach((room,index) => {
+renderMap();
 
-let div = document.createElement("div");
+renderRabbits();
 
-div.className = "room";
+renderActions();
 
-if(!state.revealed.has(index))
-div.classList.add("hidden-room");
+}
 
-if(index === state.current)
+
+function renderMap(){
+
+let map=document.getElementById("map");
+
+map.innerHTML="";
+
+places.forEach((place,i)=>{
+
+let div=document.createElement("div");
+
+div.className="location";
+
+if(i===state.you.pos){
+
 div.classList.add("current");
-
-
-if(state.revealed.has(index)) {
-
-div.innerHTML =
-'<div class="room-icon">' + room[0] + '</div>' +
-'<div class="room-name">' + room[1] + '</div>';
-
-} else {
-
-div.innerHTML =
-'<div class="room-icon">?</div>' +
-'<div class="room-name">Unknown</div>';
+div.classList.add("player");
 
 }
 
+let occupant="";
 
-div.onclick = function() {
+if(state.bramble.pos===i)
+occupant+=" 🌿🐇 Bramble";
 
-if(state.revealed.has(index)) {
+if(state.nyx.pos===i)
+occupant+=" 🔮🐇 Nyx";
 
-state.current = index;
+div.innerHTML=
+"<b>"+place.icon+" "+place.name+"</b>"+
+"<br><small>"+occupant+"</small>";
 
-log("You return to " + room[1] + ".");
-
-render();
-
-}
-
-};
-
+div.onclick=()=>movePlayer(i);
 
 map.appendChild(div);
 
 });
 
+}
 
-let bag = document.getElementById("bag");
 
-bag.innerHTML = "";
+function renderRabbits(){
 
-state.bag.forEach(token => {
+let box=document.getElementById("rabbits");
 
-let t = document.createElement("div");
+box.innerHTML=
 
-t.className = "token";
-
-t.textContent = {
-
-moon:"🌙",
-
-food:"🥕",
-
-safe:"🌿",
-
-danger:"🦊",
-
-fear:"😨"
-
-}[token];
-
-bag.appendChild(t);
-
-});
+card(state.you)+
+card(state.bramble)+
+card(state.nyx);
 
 }
 
 
-function win() {
+function card(r){
 
-state.ended = true;
-
-document.getElementById("gameScreen").classList.add("hidden");
-
-document.getElementById("endScreen").classList.remove("hidden");
-
-document.getElementById("endTitle").textContent =
-"The Moon Hare Awakens";
-
-document.getElementById("endText").textContent =
-"You gathered " + state.moonlight +
-" pieces of Moonlight in " + state.turn +
-" turns. The ancient Moon Hare rises from beneath the burrow and names your rabbit its new guardian.";
+return `
+<div class="rabbitCard">
+${r.icon} <b>${r.name}</b>
+<br>
+🌙 ${r.moon}
+<br>
+🥕 ${r.food}
+<br>
+😨 ${r.fear}
+</div>
+`;
 
 }
 
 
-function lose() {
+function renderActions(){
 
-state.ended = true;
+let box=document.getElementById("actions");
 
-document.getElementById("gameScreen").classList.add("hidden");
+box.innerHTML=
 
-document.getElementById("endScreen").classList.remove("hidden");
+`<div class="choice">
 
-document.getElementById("endTitle").textContent =
-"The Burrow Falls Silent";
+<b>Current location:</b>
+${places[state.you.pos].icon}
+${places[state.you.pos].name}
 
-document.getElementById("endText").textContent =
-"Your rabbit could not withstand the dangers beneath the meadow. The Moon Hare remains asleep... for now.";
+<br><br>
+
+<button onclick="explore()">
+🔎 Explore
+</button>
+
+<button onclick="prepare()">
+🌿 Prepare
+</button>
+
+<button onclick="scheme()">
+✨ Scheme
+</button>
+
+<button onclick="trade()">
+🤝 Trade
+</button>
+
+</div>`;
 
 }
+
 
 </script>
 
